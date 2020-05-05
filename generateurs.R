@@ -4,12 +4,12 @@ Frequency <- function(x, nb)
   for(i in length(x))
   {
     bin=binary(x[i])
-    for(j in nb)
+    for(j in 0:nb-1)
     {
-      s <- s + (2*bin[j]-1)
+      s <- s + (2*bin[32-j]-1)
     }
   }
-  Sobs <- abs(s)/sqrt(nb)
+  Sobs <- abs(s)/sqrt(nb*length(x))
   Pvaleur <- 2*(1-pnorm(Sobs))
   return(Pvaleur)
 }
