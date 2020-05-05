@@ -1,13 +1,17 @@
 Frequency <- function(x, nb)  
 {
-  bit <- binary(x)
-  s <- 0
-  for(i in 1:nb)
+  s<-0
+  for(i in length(x))
   {
-    s <- s + (2*bit[i]-1)
+    bin=binary(x[i])
+    for(j in nb)
+    {
+      s <- s + (2*bin[j]-1)
+    }
   }
   Sobs <- abs(s)/sqrt(nb)
-  return(Sobs)
+  Pvaleur <- 2*(1-pnorm(Sobs))
+  return(Pvaleur)
 }
 
 
