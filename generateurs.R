@@ -1,3 +1,25 @@
+RANDU = function(k, graine)
+{
+  x <-matrix(nrow=k, ncol=1)
+  x[1] = graine
+  for(i in 2:k)
+  {
+    x[i] = (x[i-1] * 65539) %% (2^31)-1
+  }  
+  return(x)
+}
+
+StandardMinimal = function(k,graine)
+{
+  x <-  matrix(nrow=k, ncol=1)
+  x[1] = graine
+  for(i in 2:k)
+  {
+    x[i] = (x[i-1] * 16807) %% 2^31
+  }
+  return(x)
+}
+
 VonNeumann <- function(n, p=1, graine)
 {
   x <-  rep(graine,n*p+1)
