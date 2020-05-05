@@ -4,7 +4,7 @@ RANDU = function(k, graine)
   x[1] = graine
   for(i in 2:k)
   {
-    x[i] = (x[i-1] * 65539) %% (2^31)-1
+    x[i] = (x[i-1] * 65539) %% (2^31)
   }  
   return(x)
 }
@@ -15,7 +15,7 @@ StandardMinimal = function(k,graine)
   x[1] = graine
   for(i in 2:k)
   {
-    x[i] = (x[i-1] * 16807) %% 2^31
+    x[i] = (x[i-1] * 16807) %% ((2^31)-1)
   }
   return(x)
 }
