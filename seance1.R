@@ -34,24 +34,24 @@ plot(randu[1:(Nsimu-1),1],randu[2:Nsimu,1],xlab='RANDU(i)', ylab='RANDU(i+1)', m
 plot(sm[1:(Nsimu-1),1],sm[2:Nsimu,1],xlab='SM(i)', ylab='SM(i+1)', main='Standard Minimal')
 
 
-samples = sample.int(100000,100)
+samples = sample.int(100000,10)
 vnP = 0
-mtP = 0;
+mtP = 0
 randuP = 0
 smP = 0
-for(i in length(samples))
+for(i in 1:length(samples))
 {
   vn <- VonNeumann(Nsimu,Nrepet,samples[i])
   mt <- MersenneTwister(Nsimu,Nrepet,samples[i])
   randu = RANDU(Nsimu, samples[i])
   sm = StandardMinimal(Nsimu, samples[i]) 
   
-  vnP = vnP + frequency(vn, 14)
-  mtP = mtP + frequency(mt, 32)
-  randuP = randuP + frequency(randu, 31)
-  smP = smP + frequency(sm,31)
+  vnP = vnP + Frequency(vn, 14)
+  mtP = mtP + Frequency(mt, 32)
+  randuP = randuP + Frequency(randu, 31)
+  smP = smP + Frequency(sm,31)
 }
-vnP = vnP / 100
-mtP = mtP / 100
-randuP = randuP / 100
-smP = smP / 100
+vnP = vnP / length(samples)
+mtP = mtP / length(samples)
+randuP = randuP / length(samples)
+smP = smP / length(samples)

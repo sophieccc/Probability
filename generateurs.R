@@ -1,10 +1,36 @@
-Frequency <- function(x, nb)  
+Runs <- function(x,nb) # x is int
+{
+  bin = binary(x)
+  #pre-test
+  pi <- 0
+  for(i in 1:nb)
+  {
+    pi <- pi + bin[i]
+  }
+  pi <- pi/nb
+  tau <- 2/sqrt(nb)
+  Pvaleur <- 0
+  if(abs(pi-0.5)<tau)
+  {
+    Vnobs <- 1
+    for(j in 1:nb-1)
+    {
+      if(bin[j]!=bin[j+1]){
+        Vnobs <- Vnobs + 1
+      }
+    }
+    Pvaleur <- 2*(1-pnorm(abs(Vnobs-2*nb*pi*(1-pi))/(2*sqrt(nb)*pi*(1-pi))))
+  }
+  return(Pvaleur)
+}
+
+Frequency <- function(x,nb)  
 {
   s<-0
-  for(i in length(x))
+  for(i in 1:length(x))
   {
     bin=binary(x[i])
-    for(j in 0:nb-1)
+    for(j in 0:(nb-1))
     {
       s <- s + (2*bin[32-j]-1)
     }
