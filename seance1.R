@@ -33,8 +33,6 @@ plot(vn[1:(Nsimu-1),1],vn[2:Nsimu,1],xlab='VN(i)', ylab='VN(i+1)', main='Von Neu
 plot(randu[1:(Nsimu-1),1],randu[2:Nsimu,1],xlab='RANDU(i)', ylab='RANDU(i+1)', main='RANDU')
 plot(sm[1:(Nsimu-1),1],sm[2:Nsimu,1],xlab='SM(i)', ylab='SM(i+1)', main='Standard Minimal')
 
-# Sequence de bits pour les tests
-(bit_mt <- binary(mt[1,1]))
 
 samples = sample.int(100000,100)
 vnP = 0
@@ -45,8 +43,8 @@ for(sam in length(samples))
 {
   vn <- VonNeumann(Nsimu,Nrepet,sam)
   mt <- MersenneTwister(Nsimu,Nrepet,sam)
-  # randu = RANDU(Nsimu, sam)
-  # sm = StandardMinimal(Nsimu, sam) 
+  randu = RANDU(Nsimu, sam)
+  sm = StandardMinimal(Nsimu, sam) 
   
   vnP = vnP + frequency(vn, 14)
   mtP = mtP + frequency(mt, 32)
