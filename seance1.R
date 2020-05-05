@@ -39,12 +39,12 @@ vnP = 0
 mtP = 0;
 randuP = 0
 smP = 0
-for(sam in length(samples))
+for(i in length(samples))
 {
-  vn <- VonNeumann(Nsimu,Nrepet,sam)
-  mt <- MersenneTwister(Nsimu,Nrepet,sam)
-  randu = RANDU(Nsimu, sam)
-  sm = StandardMinimal(Nsimu, sam) 
+  vn <- VonNeumann(Nsimu,Nrepet,samples[i])
+  mt <- MersenneTwister(Nsimu,Nrepet,samples[i])
+  randu = RANDU(Nsimu, samples[i])
+  sm = StandardMinimal(Nsimu, samples[i]) 
   
   vnP = vnP + frequency(vn, 14)
   mtP = mtP + frequency(mt, 32)
