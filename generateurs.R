@@ -1,25 +1,28 @@
-Runs <- function(x,nb) # x is int
+Runs <- function(x,nb) 
 {
-  bin = binary(x)
-  #pre-test
-  pi <- 0
-  for(i in 1:nb)
-  {
-    pi <- pi + bin[i]
+  #Obtention de la séquence concaténée
+  V = binary(x[1])
+  V = V[(32-nb+1):32]
+  
+  for(i in 2:length(x)) {
+    bin = binary(x[i])
+    V = c(V,bin[(32-nb+1):32])
   }
-  pi <- pi/nb
-  tau <- 2/sqrt(nb)
+  n <- length(V)
+  #pre-test
+  pi <- sum(V)/n
+  tau <- 2/sqrt(n)
   Pvaleur <- 0
   if(abs(pi-0.5)<tau)
   {
     Vnobs <- 1
-    for(j in 1:nb-1)
+    for(j in 1:(n-1))
     {
-      if(bin[j]!=bin[j+1]){
+      if(V[j]!=V[j+1]){
         Vnobs <- Vnobs + 1
       }
     }
-    Pvaleur <- 2*(1-pnorm(abs(Vnobs-2*nb*pi*(1-pi))/(2*sqrt(nb)*pi*(1-pi))))
+    Pvaleur <- 2*(1-pnorm(abs(Vnobs-2*n*pi*(1-pi))/(2*sqrt(n)*pi*(1-pi))))
   }
   return(Pvaleur)
 }
@@ -41,27 +44,29 @@ Frequency <- function(x,nb)
 }
 
 
-RANDU = function(k, graine)
+RANDU <- function(k,graine)
 {
-  x <-  rep(graine,k+1)
-  for(i in 2:k+1)
+  suite = matrix(nrow=k, ncol=1)
+  suite[1]=graine
+  for (i in 2:k)
   {
-    x[i] = (x[i-1] * 65539) %% (2^31)
-  }  
-  x <- matrix(x[2:(k+1)],nrow=k,ncol=1)
-  return(x)
+    suite[i]=(65539*suite[i-1])%%(2^31)
+  }
+  return(suite)
 }
 
-StandardMinimal = function(k,graine)
+
+STANDARD_MINI <- function(k,graine)
 {
-  x <-  rep(graine,k+1)
-  for(i in 2:k+1)
+  suite = matrix(nrow=k, ncol=1)
+  suite[1]=graine
+  for (i in 2:k)
   {
-    x[i] = (x[i-1] * 16807) %% ((2^31)-1)
+    suite[i]=(16807*suite[i-1])%%((2^31)-1)
   }
-  x <- matrix(x[2:(k+1)],nrow=k,ncol=1)
-  return(x)
+  return(suite)
 }
+
 
 VonNeumann <- function(n, p=1, graine)
 {
@@ -70,7 +75,7 @@ VonNeumann <- function(n, p=1, graine)
   {
     numbers <- strsplit(format(x[i-1]^2,scientific=FALSE),'')[[1]]
     while(length(numbers)>4){ 
-        numbers <- numbers[2:(length(numbers)-1)] 
+      numbers <- numbers[2:(length(numbers)-1)] 
     }
     x[i] <- as.numeric(numbers)%*%(10^seq(length(numbers)-1,0,-1))
   }
