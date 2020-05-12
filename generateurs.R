@@ -1,3 +1,54 @@
+Rejet <- function(n)
+{
+  c = 2/(log(2)^2)
+  X = matrix(nrow=n, ncol=1)
+  for (i in 1:n)
+  {
+    U = runif(n,min = 0,max = 1)
+    Y = runif(n,min = 0,max = 1)
+    while(U > log(1+Y)/(1+Y) )
+    {
+      U = runif(n,min = 0,max = 1)
+      Y = runif(n,min = 0,max = 1)
+    }
+    X[i]=Y
+  }
+  return(X)
+}
+
+f <- function(x)
+{
+  c = 2/(log(2)^2)
+  y = c * log(1+x)/(1+x) * fancy_one (x)
+  return (y)
+}
+
+fancy_one <- function(x)
+{
+  y=0;
+  if(x>=0 && x<=1)
+  {
+    y=1;
+  }
+  return (y);
+}
+
+Inversion <- function(n)
+{
+  U = runif(n,min = 0,max = 1)
+  X = exp(sqrt(U)*log(2))-1;
+  return (X)
+}
+
+
+LoiBinomiale <- function (n,p)
+{
+  U = runif(n,min = 0,max = 1)
+  X = sum(U < p)
+  return (X)
+}
+
+
 Runs <- function(x,nb) 
 {
   #Obtention de la séquence concaténée

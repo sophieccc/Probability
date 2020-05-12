@@ -187,3 +187,27 @@ print(vnV_O)
 print(mtV_O)
 print(randuV_O)
 print(smV_O)
+
+###################################################################
+##  Section 3 : Simulations de lois de probabilités quelconques  ##
+###################################################################
+samples = sample.int(100000,1000)
+X = matrix(nrow=1000, ncol=1)
+dens = matrix(nrow=1000, ncol=1)
+gauss = matrix(nrow=1000, ncol=1)
+k=seq(from = 1, to = 1000, by = 1)
+p=0.4
+for (i in 1:length(X))
+{
+  n=samples[i]
+  k=k[i]
+  X[i] = LoiBinomiale(n,p)
+  dens [i] = choose(n, k)*(p^k)*((1-p)^(n-k))
+  gauss [i] = dnorm(n*p,sqrt(n*p*(1-p)))
+}
+hist(X[,1],xlab='',main='Binomial Distribution')
+
+hist(abs(dens[,1]-gauss[,1]),xlab='',main='Density')
+
+
+microbenchmark::microbenchmark(times=100,Rejet(1000),Inversion(1000))
