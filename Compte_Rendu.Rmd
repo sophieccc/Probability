@@ -74,6 +74,12 @@ explanation explanation
 library(randtoolbox)
 source('generateurs.R')
 
+sVN <- 9721
+sMT <- 2504
+Nsimu <- 1000
+Nrepet <- 1
+grain <- 999
+
 vn <- VonNeumann(Nsimu,Nrepet,sVN)
 mt <- MersenneTwister(Nsimu,Nrepet,sMT)
 ru <- RANDU(Nsimu, grain)
@@ -161,10 +167,26 @@ Runs <- function(x,nb)
 explanation explanation
 
 ```{r}
+
+samples = sample.int(100000,100)
+
+PVMT_O = matrix(nrow=length(samples), ncol=1)
+PVRandU_O = matrix(nrow=length(samples), ncol=1)
+PVSM_O = matrix(nrow=length(samples), ncol=1)
+PVVnM_O = matrix(nrow=length(samples), ncol=1)
+
+for(i in 1:length(samples))
+{
+  vn <- VonNeumann(Nsimu,Nrepet,samples[i])
+  mt <- MersenneTwister(Nsimu,Nrepet,samples[i])
+  randu = RANDU(Nsimu, samples[i])
+  sm = STANDARD_MINI(Nsimu, samples[i]) 
+  
   PVMT_O [i] = randtoolbox::order.test(mt[,1], d=4, echo=FALSE)$p.value
   PVRandU_O [i] = randtoolbox::order.test(randu[,1], d=4, echo=FALSE)$p.value
   PVSM_O [i] = randtoolbox::order.test(sm[,1], d=4, echo=FALSE)$p.value
   PVVnM_O [i] = randtoolbox::order.test(vn[,1], d=4, echo=FALSE)$p.value
+}
 ```
 
 #Partie 2.
