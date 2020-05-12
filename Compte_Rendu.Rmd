@@ -1,0 +1,65 @@
+---
+title: "TP de Probabilités"
+author: "NASSREDDINE, HUA, CROWLEY"
+date: "12/05/2020"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+
+
+XXX Short description of what this is XXX
+
+
+#Partie 1.
+
+##Question 1
+
+explanation explanation
+
+```{r setup, include=FALSE}
+RANDU <- function(k,graine)
+{
+  suite = matrix(nrow=k, ncol=1)
+  suite[1]=graine
+  for (i in 2:k)
+  {
+    suite[i]=(65539*suite[i-1])%%(2^31)
+  }
+  return(suite)
+}
+```
+
+
+explanation explanation *en italique* ou **en gras**.
+* Item 1 
+
+* Item 2 
+
+    + sub-item 1 
+
+    + sub-item 2 
+Et des tableaux :
+
+Permière colonne | Deuxième colonne 
+------------- | ------------- 
+a    | x        
+b        | y        
+
+Ou mettre des formules : $Aire = \pi\,r^{2}$.
+
+```{r}
+STANDARD_MINI <- function(k,graine)
+{
+  suite = matrix(nrow=k, ncol=1)
+  suite[1]=graine
+  for (i in 2:k)
+  {
+    suite[i]=(16807*suite[i-1])%%((2^31)-1)
+  }
+  return(suite)
+}
+```
+
