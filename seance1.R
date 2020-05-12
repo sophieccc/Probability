@@ -39,10 +39,10 @@ plot(sm[1:(Nsimu-1),1],sm[2:Nsimu,1],xlab='SM(i)', ylab='SM(i+1)', main='Standar
 # Test de fréquence monobit
 samples = sample.int(100000,100)
 
-PVMT = matrix(nrow=length(samples), ncol=1)
-PVRandU = matrix(nrow=length(samples), ncol=1)
-PVSM = matrix(nrow=length(samples), ncol=1)
-PVVnM = matrix(nrow=length(samples), ncol=1)
+PVMT_F = matrix(nrow=length(samples), ncol=1)
+PVRandU_F = matrix(nrow=length(samples), ncol=1)
+PVSM_F = matrix(nrow=length(samples), ncol=1)
+PVVnM_F = matrix(nrow=length(samples), ncol=1)
 
 for(i in 1:length(samples))
 {
@@ -51,40 +51,40 @@ for(i in 1:length(samples))
   randu = RANDU(Nsimu, samples[i])
   sm = STANDARD_MINI(Nsimu, samples[i]) 
   
-  PVMT [i] = Frequency(mt, 32)
-  PVRandU [i] = Frequency(randu, 31)
-  PVSM [i] = Frequency(sm,31)
-  PVVnM [i] = Frequency(vn, 14)
+  PVMT_F [i] = Frequency(mt, 32)
+  PVRandU_F [i] = Frequency(randu, 31)
+  PVSM_F [i] = Frequency(sm,31)
+  PVVnM_F [i] = Frequency(vn, 14)
 }
 
 
 par(mfrow=c(2,2))
-plot(PVMT)
-plot(PVVnM)
-plot(PVRandU)
-plot(PVSM)
+plot(PVMT_F)
+plot(PVVnM_F)
+plot(PVRandU_F)
+plot(PVSM_F)
 
 
 
-vnP = mean(PVVnM)
-mtP = mean(PVMT)
-randuP = mean(PVRandU)
-smP = mean(PVSM)
+vnP_F = mean(PVVnM_F)
+mtP_F = mean(PVMT_F)
+randuP_F = mean(PVRandU_F)
+smP_F = mean(PVSM_F)
 
-vnSD = sd(PVVnM)
-mtSD = sd(PVMT)
-rdSD = sd (PVRandU)
-smSD = sd(PVSM)
+vnSD_F = sd(PVVnM_F)
+mtSD_F = sd(PVMT_F)
+rdSD_F = sd (PVRandU_F)
+smSD_F = sd(PVSM_F)
 
-vnV = var(PVVnM)
-mtV = var(PVMT)
-randuV = var (PVRandU)
-smV = var (PVSM)
+vnV_F = var(PVVnM_F)
+mtV_F = var(PVMT_F)
+randuV_F = var (PVRandU_F)
+smV_F = var (PVSM_F)
 
-print(vnV)
-print(mtV)
-print(randuV)
-print(smV)
+print(vnV_F)
+print(mtV_F)
+print(randuV_F)
+print(smV_F)
 
 # Test des Runs
 
