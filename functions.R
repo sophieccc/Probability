@@ -92,6 +92,28 @@ MM1Evolution <- function(queue)
   return(results)
 }
 
+AvgTime <- function(queue)
+{
+  arrive <- queue[[1]]
+  depart <- queue[[2]]
+  
+  nbarrive <- length(arrive)
+  nbdepart <- length(depart)
+  avg <- 0 
+  for (i in 1:length(depart))
+  {
+    avg <- avg + depart[i] - arrive [i]
+  }
+  avg <- avg / length(depart)
+  return(avg)
+}
+
+AvgAttendance <- function(lambda, mu)
+{
+  alpha = lambda / mu
+  E = (alpha) / (1 - alpha)
+  return(E)
+}
 
 
 
