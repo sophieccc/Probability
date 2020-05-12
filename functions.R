@@ -1,19 +1,21 @@
 FileMM1 <- function (lambda, mu, D)
 {
-  arrive = vector()
-  depart = vector()
+  arrive <- c()
+  depart <- c()
   
-  temps <- 0
+  time <- 0
   k <- 0
   while(time < D)
   {
     time <- time + rexp(1, rate=lambda)
     if (time < D)
     {
-      arrive[k] = time
+      arrive <- c(arrive, time)
       k <- k+1;
     }
   }
+  
+  print(arrive)
   
   if(length(arrive)>0)
   {
@@ -22,15 +24,15 @@ FileMM1 <- function (lambda, mu, D)
     {
       if (arrive [i] > depart[i-1])
       {
-        time = arrive [i] + rexp(1, rate=mu)
+        time <- arrive [i] + rexp(1, rate=mu)
       }
       else
       {
-        time = depart [i-1] + rexp(1, rate=mu)
+        time <- depart [i-1] + rexp(1, rate=mu)
       }
-      if (time <D)
+      if (time < D)
       {
-        depart [i] = time
+        depart <- c(depart, time)
       }
       else
       {
@@ -38,4 +40,60 @@ FileMM1 <- function (lambda, mu, D)
       }
     }
   }
+  queue <- list(arrive, depart)
+  return(queue)
 }
+
+MM1Evolution <- function(queue)
+{
+  arrive <- queue[[1]]
+  depart <- queue[[2]]
+  nbarrive <- length(arrive)
+  nbdepart <- length(depart)
+  time <- matrix(nrow=nbarrive + nbdepart +1, ncol=1)
+  attendees <- matrix(nrow=nbarrive + nbdepart +1, ncol=1)
+  time[1] = 0
+  attendees[1]= 0
+  
+  i <- 1
+  j <- 1
+  while ( i <= nbarrive && j <= nbdepart)
+  {
+    if (arrive[i] <= depart[j])
+    {
+      attendees[i+j] = attendees [i+j-1] + 1
+      time [i+j] = arrive [i] 
+      i <- i+1
+    }
+    else
+    {
+      attendees[i+j] = attendees [i+j-1] - 1
+      time [i+j] = depart [j] 
+      j <- j+1
+    }
+  }
+  if (i <= nbarrive)
+  {
+    for (k in i:nbarrive)
+    {
+      attendees[k+j] = attendees[k+j-1] + 1;
+      time [k+j] = arrive [k]
+    }
+  }
+  else if (j <= nbdepart)
+  {
+    for (k in j:nbdepart)
+    {
+      attendees[k+i] = attendees[k+i-1] - 1;
+      time [k+i] = depart [k]
+    }
+  }
+  results <- list(time, attendees)
+  return(results)
+}
+
+
+
+
+
+
