@@ -34,6 +34,7 @@ RANDU <- function(k,graine)
 
 
 explanation explanation *en italique* ou **en gras**.
+
 * Item 1 
 
 * Item 2 
@@ -63,3 +64,113 @@ STANDARD_MINI <- function(k,graine)
 }
 ```
 
+
+##Question 2.1
+
+explanation explanation
+
+```{r}
+vn <- VonNeumann(Nsimu,Nrepet,sVN)
+mt <- MersenneTwister(Nsimu,Nrepet,sMT)
+ru <- RANDU(Nsimu, grain)
+sm <- STANDARD_MINI(Nsimu, grain)
+
+par(mfrow=c(1,2))
+hist(mt[,1],xlab='',main='Mersenne Twister')
+hist(vn[,1],xlab='',main='Von Neumann')
+hist(ru[,1],xlab='',main='RANDU')
+hist(sm[,1],xlab='',main='Standard Minimal')
+```
+
+##Question 2.2
+
+explanation explanation
+
+```{r}
+par(mfrow=c(1,2))
+plot(mt[1:(Nsimu-1),1],mt[2:Nsimu,1],xlab='MT(i)', ylab='MT(i+1)', main='Mersenne Twister')
+plot(vn[1:(Nsimu-1),1],vn[2:Nsimu,1],xlab='VN(i)', ylab='VN(i+1)', main='Von Neumann')
+plot(ru[1:(Nsimu-1),1],ru[2:Nsimu,1],xlab='RU(i)', ylab='RU(i+1)', main='RANDU')
+plot(sm[1:(Nsimu-1),1],sm[2:Nsimu,1],xlab='SM(i)', ylab='SM(i+1)', main='Standard Minimal')
+```
+
+
+##Question 3
+
+explanation explanation
+
+```{r}
+Frequency <- function(x,nb)  
+{
+  s<-0
+  for(i in 1:length(x))
+  {
+    bin=binary(x[i])
+    for(j in 0:(nb-1))
+    {
+      s <- s + (2*bin[32-j]-1)
+    }
+  }
+  Sobs <- abs(s)/sqrt(nb*length(x))
+  Pvaleur <- 2*(1-pnorm(Sobs))
+  return(Pvaleur)
+}
+```
+
+##Question 4
+
+explanation explanation
+
+```{r}
+Runs <- function(x,nb) 
+{
+  #Obtention de la séquence concaténée
+  V = binary(x[1])
+  V = V[(32-nb+1):32]
+  
+  for(i in 2:length(x)) {
+    bin = binary(x[i])
+    V = c(V,bin[(32-nb+1):32])
+  }
+  n <- length(V)
+  #pre-test
+  pi <- sum(V)/n
+  tau <- 2/sqrt(n)
+  Pvaleur <- 0
+  if(abs(pi-0.5)<tau)
+  {
+    Vnobs <- 1
+    for(j in 1:(n-1))
+    {
+      if(V[j]!=V[j+1]){
+        Vnobs <- Vnobs + 1
+      }
+    }
+    Pvaleur <- 2*(1-pnorm(abs(Vnobs-2*n*pi*(1-pi))/(2*sqrt(n)*pi*(1-pi))))
+  }
+  return(Pvaleur)
+}
+```
+
+##Question 5
+
+explanation explanation
+
+```{r}
+  PVMT_O [i] = randtoolbox::order.test(mt[,1], d=4, echo=FALSE)$p.value
+  PVRandU_O [i] = randtoolbox::order.test(randu[,1], d=4, echo=FALSE)$p.value
+  PVSM_O [i] = randtoolbox::order.test(sm[,1], d=4, echo=FALSE)$p.value
+  PVVnM_O [i] = randtoolbox::order.test(vn[,1], d=4, echo=FALSE)$p.value
+```
+
+#Partie 2.
+
+##Question 1
+
+explanation explanation
+
+#Partie 3.
+
+##Question 1
+
+explanation explanation
