@@ -20,14 +20,14 @@ mt <- MersenneTwister(Nsimu,Nrepet,sMT)
 ru <- RANDU(Nsimu, grain)
 sm <- STANDARD_MINI(Nsimu, grain)
 
-par(mfrow=c(2,2))
+par(mfrow=c(1,2))
 hist(mt[,1],xlab='',main='Mersenne Twister')
 hist(vn[,1],xlab='',main='Von Neumann')
 hist(ru[,1],xlab='',main='RANDU')
 hist(sm[,1],xlab='',main='Standard Minimal')
 
 
-par(mfrow=c(2,2))
+par(mfrow=c(1,2))
 plot(mt[1:(Nsimu-1),1],mt[2:Nsimu,1],xlab='MT(i)', ylab='MT(i+1)', main='Mersenne Twister')
 plot(vn[1:(Nsimu-1),1],vn[2:Nsimu,1],xlab='VN(i)', ylab='VN(i+1)', main='Von Neumann')
 plot(ru[1:(Nsimu-1),1],ru[2:Nsimu,1],xlab='RU(i)', ylab='RU(i+1)', main='RANDU')
@@ -109,7 +109,7 @@ for(i in 1:length(samples))
 }
 
 
-par(mfrow=c(2,2))
+par(mfrow=c(1,2))
 plot(PVMT_R)
 plot(PVVnM_R)
 plot(PVRandU_R)
@@ -160,7 +160,7 @@ for(i in 1:length(samples))
 }
 
 
-par(mfrow=c(2,2))
+par(mfrow=c(1,2))
 plot(PVMT_O)
 plot(PVVnM_O)
 plot(PVRandU_O)
