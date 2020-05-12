@@ -70,6 +70,10 @@ STANDARD_MINI <- function(k,graine)
 explanation explanation
 
 ```{r}
+
+library(randtoolbox)
+source('generateurs.R')
+
 vn <- VonNeumann(Nsimu,Nrepet,sVN)
 mt <- MersenneTwister(Nsimu,Nrepet,sMT)
 ru <- RANDU(Nsimu, grain)
