@@ -209,5 +209,6 @@ hist(X[,1],xlab='',main='Binomial Distribution')
 
 hist(abs(dens[,1]-gauss[,1]),xlab='',main='Density')
 
-
+# uncomment once to install package
+# install.packages('microbenchmark')
 microbenchmark::microbenchmark(times=100,Rejet(1000),Inversion(1000))
