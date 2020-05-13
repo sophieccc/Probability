@@ -15,8 +15,6 @@ FileMM1 <- function (lambda, mu, D)
     }
   }
   
-  print(arrive)
-  
   if(length(arrive)>0)
   {
     depart [1] = arrive [1] + rexp(1, rate=mu)

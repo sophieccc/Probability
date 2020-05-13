@@ -3,6 +3,7 @@
 
 library(randtoolbox)
 source('generateurs.R')
+source('tests.R')
 
 sVN <- 9721
 sMT <- 2504
@@ -20,14 +21,14 @@ mt <- MersenneTwister(Nsimu,Nrepet,sMT)
 ru <- RANDU(Nsimu, grain)
 sm <- STANDARD_MINI(Nsimu, grain)
 
-par(mfrow=c(1,2))
+par(mfrow=c(2,2))
 hist(mt[,1],xlab='',main='Mersenne Twister')
 hist(vn[,1],xlab='',main='Von Neumann')
 hist(ru[,1],xlab='',main='RANDU')
 hist(sm[,1],xlab='',main='Standard Minimal')
 
 
-par(mfrow=c(1,2))
+par(mfrow=c(2,2))
 plot(mt[1:(Nsimu-1),1],mt[2:Nsimu,1],xlab='MT(i)', ylab='MT(i+1)', main='Mersenne Twister')
 plot(vn[1:(Nsimu-1),1],vn[2:Nsimu,1],xlab='VN(i)', ylab='VN(i+1)', main='Von Neumann')
 plot(ru[1:(Nsimu-1),1],ru[2:Nsimu,1],xlab='RU(i)', ylab='RU(i+1)', main='RANDU')
@@ -64,27 +65,76 @@ plot(PVVnM_F)
 plot(PVRandU_F)
 plot(PVSM_F)
 
+good_PVMT_F <- 0
+for (i in 1:length(samples) )
+{
+  if (PVMT_F [i] > 0.01)
+  {
+    good_PVMT_F  <- good_PVMT_F  +1
+  }
+}
 
+good_PVRANDU_F <- 0
+for (i in 1:length(samples) )
+{
+  if (PVRandU_F [i] > 0.01)
+  {
+    good_PVRANDU_F <- good_PVRANDU_F  +1
+  }
+}
+
+good_PVSM_F <- 0
+for (i in 1:length(samples) )
+{
+  if (PVSM_F [i] > 0.01)
+  {
+    good_PVSM_F <- good_PVSM_F  +1
+  }
+}
+
+good_PVnM_F <- 0
+for (i in 1:length(samples) )
+{
+  if (PVVnM_F [i] > 0.01)
+  {
+    good_PVnM_F <- good_PVnM_F  +1
+  }
+}
+
+print(good_PVMT_F)
+print(good_PVnM_F)
+print(good_PVSM_F)
+print(good_PVRANDU_F)
 
 vnP_F = mean(PVVnM_F)
 mtP_F = mean(PVMT_F)
 randuP_F = mean(PVRandU_F)
 smP_F = mean(PVSM_F)
 
+print(mtP_F)
+print(vnP_F)
+print(smP_F)
+print(randuP_F)
+
 vnSD_F = sd(PVVnM_F)
 mtSD_F = sd(PVMT_F)
 rdSD_F = sd (PVRandU_F)
 smSD_F = sd(PVSM_F)
+
+print(vnSD_F)
+print(mtSD_F)
+print(rdSD_F)
+print(smSD_F)
 
 vnV_F = var(PVVnM_F)
 mtV_F = var(PVMT_F)
 randuV_F = var (PVRandU_F)
 smV_F = var (PVSM_F)
 
-print(vnV_F)
-print(mtV_F)
-print(randuV_F)
-print(smV_F)
+# print(vnV_F)
+# print(mtV_F)
+# print(randuV_F)
+# print(smV_F)
 
 # Test des Runs
 
@@ -108,13 +158,53 @@ for(i in 1:length(samples))
   PVVnM_R [i] = Runs(vn, 14)
 }
 
-
-par(mfrow=c(1,2))
+par(mfrow=c(2,2))
 plot(PVMT_R)
 plot(PVVnM_R)
 plot(PVRandU_R)
 plot(PVSM_R)
 
+good_PVMT_R <- 0
+for (i in 1:length(samples) )
+{
+  if (PVMT_R [i] > 0.01)
+  {
+    good_PVMT_R  <- good_PVMT_R  +1
+  }
+}
+
+good_PVRANDU_R <- 0
+for (i in 1:length(samples) )
+{
+  if (PVRandU_R [i] > 0.01)
+  {
+    good_PVRANDU_R <- good_PVRANDU_R  +1
+  }
+}
+
+good_PVSM_R <- 0
+for (i in 1:length(samples) )
+{
+  if (PVSM_R [i] > 0.01)
+  {
+    good_PVSM_R <- good_PVSM_R  +1
+  }
+}
+
+good_PVnM_R <- 0
+for (i in 1:length(samples) )
+{
+  if (PVVnM_R [i] > 0.01)
+  {
+    good_PVnM_R <- good_PVnM_R  +1
+  }
+}
+
+
+print(good_PVMT_R)
+print(good_PVnM_R)
+print(good_PVSM_R)
+print(good_PVRANDU_R)
 
 
 vnP_R = mean(PVVnM_R)
@@ -122,10 +212,21 @@ mtP_R = mean(PVMT_R)
 randuP_R = mean(PVRandU_R)
 smP_R = mean(PVSM_R)
 
+print(mtP_R)
+print(vnP_R)
+print(smP_R)
+print(randuP_R)
+
+
 vnSD_R = sd(PVVnM_R)
 mtSD_R = sd(PVMT_R)
 rdSD_R = sd (PVRandU_R)
 smSD_R = sd(PVSM_R)
+
+print(vnSD_R)
+print(mtSD_R)
+print(rdSD_R)
+print(smSD_R)
 
 vnV_R = var(PVVnM_R)
 mtV_R = var(PVMT_R)
@@ -160,12 +261,53 @@ for(i in 1:length(samples))
 }
 
 
-par(mfrow=c(1,2))
+par(mfrow=c(2,2))
 plot(PVMT_O)
 plot(PVVnM_O)
 plot(PVRandU_O)
 plot(PVSM_O)
 
+good_PVMT_O <- 0
+for (i in 1:length(samples) )
+{
+  if (PVMT_O [i] > 0.01)
+  {
+    good_PVMT_O  <- good_PVMT_O  +1
+  }
+}
+
+good_PVRANDU_O <- 0
+for (i in 1:length(samples) )
+{
+  if (PVRandU_O [i] > 0.01)
+  {
+    good_PVRANDU_O <- good_PVRANDU_O  +1
+  }
+}
+
+good_PVSM_O <- 0
+for (i in 1:length(samples) )
+{
+  if (PVSM_O [i] > 0.01)
+  {
+    good_PVSM_O <- good_PVSM_O  +1
+  }
+}
+
+good_PVnM_O <- 0
+for (i in 1:length(samples) )
+{
+  if (PVVnM_O [i] > 0.01)
+  {
+    good_PVnM_O <- good_PVnM_O  +1
+  }
+}
+
+
+print(good_PVMT_O)
+print(good_PVnM_O)
+print(good_PVSM_O)
+print(good_PVRANDU_O)
 
 
 vnP_O = mean(PVVnM_O)
@@ -173,10 +315,20 @@ mtP_O = mean(PVMT_O)
 randuP_O = mean(PVRandU_O)
 smP_O = mean(PVSM_O)
 
+print(mtP_O)
+print(vnP_O)
+print(smP_O)
+print(randuP_O)
+
 vnSD_O = sd(PVVnM_O)
 mtSD_O = sd(PVMT_O)
 rdSD_O = sd (PVRandU_O)
 smSD_O = sd(PVSM_O)
+
+print(vnSD_O)
+print(mtSD_O)
+print(rdSD_O)
+print(smSD_O)
 
 vnV_O = var(PVVnM_O)
 mtV_O = var(PVMT_O)
